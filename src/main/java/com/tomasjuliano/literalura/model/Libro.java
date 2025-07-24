@@ -1,19 +1,42 @@
 package com.tomasjuliano.literalura.model;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "libro")
 public class Libro{
+    // Atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Genera los ID autoincrementalmente.
     private int id;
     private String titulo;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "libro_autor",
+        joinColumns = @JoinColumn(name = "libro_id"),
+        inverseJoinColumns = @JoinColumn(name = "autor_id")
+    )
     private List<Autor> autores;
-    private List<String> resumenes;
-    private List<String> lenguajes;
+
+    // Elimino las colecciones y uso campos simples para idioma y resumen
+    @Column(length = 2000)
+    private String resumen;
+    private String lenguaje;
     private int descargas;
 
-    public Libro(int id, String titulo, List<Autor> autores, List<String> resumenes, List<String> lenguajes, int descargas) {
-        this.id = id;
+    // Constructor predeterminado requerido por JPA.
+    public Libro() {
+        // Constructor por defecto
+    }
+
+    // Constructor sin id para JPA
+    public Libro(String titulo, List<Autor> autores, String resumen, String lenguaje, int descargas) {
         this.titulo = titulo;
         this.autores = autores;
-        this.resumenes = resumenes;
-        this.lenguajes = lenguajes;
+        this.resumen = resumen;
+        this.lenguaje = lenguaje;
         this.descargas = descargas;
     }
 
@@ -38,18 +61,17 @@ public class Libro{
         this.autores = autores;
     }
 
-    public List<String> getResumenes() {
-        return resumenes;
+    public String getResumen() {
+        return resumen;
     }
-    public void setResumenes(List<String> resumenes) {
-        this.resumenes = resumenes;
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
     }
-
-    public List<String> getLenguajes() {
-        return lenguajes;
+    public String getLenguaje() {
+        return lenguaje;
     }
-    public void setLenguajes(List<String> lenguajes) {
-        this.lenguajes = lenguajes;
+    public void setLenguaje(String lenguaje) {
+        this.lenguaje = lenguaje;
     }
 
     public int getDescargas() {

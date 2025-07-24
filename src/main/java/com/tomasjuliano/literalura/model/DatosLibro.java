@@ -3,12 +3,14 @@ package com.tomasjuliano.literalura.model;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 
 public record DatosLibro(
         @JsonAlias("id") String id,
         @JsonAlias("title") String titulo,
-        @JsonAlias("authors") List<Autor> autores,
+        @JsonAlias("authors") List<DatosAutor> autores,
         @JsonAlias("languages") List<String> lenguajes,
         @JsonAlias("summaries") List<String> resumenes,
         @JsonAlias("download_count") Integer descargas){

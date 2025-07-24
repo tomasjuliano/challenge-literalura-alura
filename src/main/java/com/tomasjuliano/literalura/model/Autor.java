@@ -1,9 +1,19 @@
 package com.tomasjuliano.literalura.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "autor")
 public class Autor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nombre;
     private String anioNacimiento;
     private String anioFallecimiento;
+
+    // Constructor vacío requerido por JPA
+    public Autor() {}
 
     public Autor(String nombre, String anioNacimiento, String anioFallecimiento) {
         this.nombre = nombre;
